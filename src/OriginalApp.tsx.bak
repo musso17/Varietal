@@ -1,0 +1,110 @@
+import React, { useState, useMemo } from 'react';
+import { Header } from './components/Header';
+import { Board } from './components/Board';
+import { Calendar } from './components/Calendar';
+import { Table } from './components/Table';
+import { CardDetailModal } from './components/CardDetailModal';
+import { usePosts } from './hooks/usePosts';
+import type { Post } from './types';
+
+const App: React.FC = () => {
+  const { posts, savePost, deletePost, updateStatus } = usePosts();
+  const [view, setView] = useState<'board' | 'calendar' | 'table'>('board');
+  const [search, setSearch] = useState('');
+  const [filterBlock, setFilterBlock] = useState('');
+  const [filterType, setFilterType] = useState('');
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const filteredPosts = useMemo(() => {
+    return posts.filter(p => {
+      const matchesSearch = p.title.toLowerCase().includes(search.toLowerCase()) || 
+                           p.concept.toLowerCase().includes(search.toLowerCase());
+      const matchesBlock = filterBlock ? p.block === filterBlock : true;
+      const matchesType = filterType ? p.type === filterType : true;
+      return matchesSearch && matchesBlock && matchesType;
+    });
+  }, [posts, search, filterBlock, filterType]);
+
+  const handleOpenModal = (post: Post | null = null, initialDate: string = '') => {
+    if (post) {
+      setSelectedPost(post);
+    } else {
+      setSelectedPost({
+        id: Date.now().toString(),
+        title: '',
+        type: 'photo',
+        block: 'Tostaduría',
+        concept: '',
+        visual: '',
+        status: 'idea',
+        date: initialDate || '',
+        link: '',
+        comments: []
+      });
+    }
+    setIsModalOpen(true);
+  };
+
+  const handleSave = (post: Post) => {
+    savePost(post);
+    setIsModalOpen(false);
+  };
+
+  const handleDelete = (id: string) => {
+    if (window.confirm('¿Eliminar esta pieza de contenido?')) {
+      deletePost(id);
+      setIsModalOpen(false);
+    }
+  };
+
+  return (
+    <>
+      <Header 
+        posts={posts}
+        view={view}
+        setView={setView}
+        search={search}
+        setSearch={setSearch}
+        filterBlock={filterBlock}
+        setFilterBlock={setFilterBlock}
+        filterType={filterType}
+        setFilterType={setFilterType}
+        onNew={() => handleOpenModal()}
+      />
+      
+      <main className="main">
+        {view === 'board' && (
+          <Board 
+            posts={filteredPosts} 
+            onCardClick={handleOpenModal} 
+            onUpdateStatus={updateStatus} 
+          />
+        )}
+        {view === 'calendar' && (
+          <Calendar 
+            posts={filteredPosts} 
+            onCardClick={handleOpenModal} 
+            onNew={(date) => handleOpenModal(null, date)} 
+          />
+        )}
+        {view === 'table' && (
+          <Table 
+            posts={filteredPosts} 
+            onCardClick={handleOpenModal} 
+          />
+        )}
+      </main>
+
+      <CardDetailModal 
+        post={selectedPost}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleSave}
+        onDelete={handleDelete}
+      />
+    </>
+  );
+};
+
+export default App;
