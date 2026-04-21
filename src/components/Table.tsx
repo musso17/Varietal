@@ -67,13 +67,13 @@ export const Table: React.FC<TableProps> = ({ posts, onCardClick }) => {
                 <td style={{ textAlign: 'center' }}>
                   {p.link ? (
                     <a
-                      href={p.link}
+                      href={p.link.startsWith('http') ? p.link : `https://${p.link}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      style={{ color: '#185FA5', display: 'flex', justifyContent: 'center' }}
+                      className="tbl-link"
                     >
-                      <ExternalLink size={12} />
+                      Ver link
                     </a>
                   ) : (
                     <span style={{ color: '#A39E95' }}>—</span>

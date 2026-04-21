@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Check, Trash2, Send, MessageSquare } from 'lucide-react';
+import { X, Check, Trash2, Send, MessageSquare, ExternalLink } from 'lucide-react';
 import { COLS, type Post } from '../types';
 
 interface CardDetailModalProps {
@@ -140,12 +140,26 @@ export const CardDetailModal: React.FC<CardDetailModalProps> = ({ post, isOpen, 
           </div>
           <div className="form-group">
             <label>Link de assets / referencia</label>
-            <input
-              type="url"
-              value={formData.link}
-              onChange={(e) => setFormData({ ...formData, link: e.target.value })}
-              placeholder="https://drive.google.com/..."
-            />
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <input
+                type="text"
+                value={formData.link || ''}
+                onChange={(e) => setFormData({ ...formData, link: e.target.value })}
+                placeholder="Pega un link (Drive, Instagram, etc.)"
+                style={{ flex: 1 }}
+              />
+              {formData.link && (
+                <a 
+                  href={formData.link.startsWith('http') ? formData.link : `https://${formData.link}`}
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="btn-link-action"
+                  title="Abrir link"
+                >
+                  <ExternalLink size={16} />
+                </a>
+              )}
+            </div>
           </div>
           <div className="form-group">
             <label>Estado</label>

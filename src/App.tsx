@@ -54,12 +54,19 @@ const App: React.FC = () => {
   const handleSave = async (post: Post) => {
     await savePost(post);
     setIsModalOpen(false);
+    setSelectedPost(null);
+  };
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+    setSelectedPost(null);
   };
 
   const handleDelete = async (id: string) => {
     if (window.confirm('¿Eliminar esta pieza de contenido?')) {
       await deletePost(id);
       setIsModalOpen(false);
+      setSelectedPost(null);
     }
   };
 
@@ -119,7 +126,7 @@ const App: React.FC = () => {
       <CardDetailModal 
         post={selectedPost}
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={handleClose}
         onSave={handleSave}
         onDelete={handleDelete}
       />
