@@ -1,5 +1,5 @@
 import React from 'react';
-import { Video, Camera, ExternalLink } from 'lucide-react';
+import { Video, Camera } from 'lucide-react';
 import type { Post } from '../types';
 
 interface TableProps {
