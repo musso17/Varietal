@@ -4,6 +4,7 @@ import { Board } from './components/Board';
 import { Calendar } from './components/Calendar';
 import { Table } from './components/Table';
 import { CardDetailModal } from './components/CardDetailModal';
+import { StrategyView } from './components/StrategyView';
 import { usePosts } from './hooks/usePosts';
 import { useSessions } from './hooks/useSessions';
 import type { Post } from './types';
@@ -12,12 +13,13 @@ import { Loader2 } from 'lucide-react';
 const App: React.FC = () => {
   const { posts, loading: postsLoading, savePost, deletePost, updateStatus } = usePosts();
   const { sessions, loading: sessionsLoading, toggleSession } = useSessions();
-  const [view, setView] = useState<'board' | 'calendar' | 'table'>('board');
+  const [view, setView] = useState<'board' | 'calendar' | 'table' | 'strategy'>('strategy');
 
   const loading = postsLoading || sessionsLoading;
   const [search, setSearch] = useState('');
   const [filterPilar, setFilterPilar] = useState('');
   const [filterType, setFilterType] = useState('');
+  const [filterMonth, setFilterMonth] = useState('');
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -27,9 +29,26 @@ const App: React.FC = () => {
                            (p.concept || '').toLowerCase().includes(search.toLowerCase());
       const matchesPilar = filterPilar ? p.pilar === filterPilar : true;
       const matchesType = filterType ? p.type === filterType : true;
-      return matchesSearch && matchesPilar && matchesType;
+      
+      let matchesMonth = true;
+      if (filterMonth && p.date) {
+        // Parse directly from string to avoid timezone issues (YYYY-MM-DD)
+        const [yearStr, monthStr] = p.date.split('-');
+        const postMonth = parseInt(monthStr, 10);
+        const postYear = parseInt(yearStr, 10);
+        
+        if (filterMonth === 'mes1') {
+          matchesMonth = postYear === 2026 && postMonth === 5; // May
+        } else if (filterMonth === 'mes2') {
+          matchesMonth = postYear === 2026 && postMonth === 6; // June
+        } else if (filterMonth === 'mes3') {
+          matchesMonth = postYear === 2026 && postMonth === 7; // July
+        }
+      }
+
+      return matchesSearch && matchesPilar && matchesType && matchesMonth;
     });
-  }, [posts, search, filterPilar, filterType]);
+  }, [posts, search, filterPilar, filterType, filterMonth]);
 
   const handleOpenModal = (post: Post | null = null, initialDate: string = '') => {
     if (post) {
@@ -91,6 +110,8 @@ const App: React.FC = () => {
         setFilterPilar={setFilterPilar}
         filterType={filterType}
         setFilterType={setFilterType}
+        filterMonth={filterMonth}
+        setFilterMonth={setFilterMonth}
         onNew={() => handleOpenModal()}
       />
       
@@ -120,6 +141,9 @@ const App: React.FC = () => {
             posts={filteredPosts} 
             onCardClick={handleOpenModal} 
           />
+        )}
+        {view === 'strategy' && (
+          <StrategyView />
         )}
       </main>
 

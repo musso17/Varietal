@@ -37,10 +37,10 @@ export const CardDetailModal: React.FC<CardDetailModalProps> = ({ post, isOpen, 
 
   const handleAddComment = () => {
     if (!commentText.trim() || !formData) return;
-    const newComment = { 
-      id: crypto.randomUUID(), 
-      author: 'Varietal (Cliente)', 
-      text: commentText.trim() 
+    const newComment = {
+      id: crypto.randomUUID(),
+      author: 'Varietal (Cliente)',
+      text: commentText.trim()
     };
     setFormData({ ...formData, comments: [...formData.comments, newComment] });
     setCommentText('');
@@ -63,7 +63,7 @@ export const CardDetailModal: React.FC<CardDetailModalProps> = ({ post, isOpen, 
     if (!formData || !editingCommentId) return;
     setFormData({
       ...formData,
-      comments: formData.comments.map(c => 
+      comments: formData.comments.map(c =>
         c.id === editingCommentId ? { ...c, text: editCommentText } : c
       )
     });
@@ -149,9 +149,9 @@ export const CardDetailModal: React.FC<CardDetailModalProps> = ({ post, isOpen, 
                 style={{ flex: 1 }}
               />
               {formData.link && (
-                <a 
+                <a
                   href={formData.link.startsWith('http') ? formData.link : `https://${formData.link}`}
-                  target="_blank" 
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="btn-link-action"
                   title="Abrir link"
@@ -191,7 +191,7 @@ export const CardDetailModal: React.FC<CardDetailModalProps> = ({ post, isOpen, 
                     <div className={`comment-text ${c.author === 'Cerezo' ? 'comment-cerezo' : 'comment-varietal'}`}>
                       {editingCommentId === c.id ? (
                         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                          <input 
+                          <input
                             autoFocus
                             className="comment-edit-input"
                             value={editCommentText}
@@ -199,7 +199,7 @@ export const CardDetailModal: React.FC<CardDetailModalProps> = ({ post, isOpen, 
                             onKeyDown={(e) => e.key === 'Enter' && handleUpdateComment()}
                           />
                           <button onClick={handleUpdateComment} className="comment-action-btn" style={{ color: 'var(--accent)' }}>
-                             <Check size={12} />
+                            <Check size={12} />
                           </button>
                         </div>
                       ) : (
@@ -207,7 +207,7 @@ export const CardDetailModal: React.FC<CardDetailModalProps> = ({ post, isOpen, 
                           {c.text}
                           <div className="comment-actions">
                             <button className="comment-action-btn" onClick={() => startEditing(c.id, c.text)}>
-                              <Send size={10} style={{ transform: 'rotate(-90deg)' }} /> 
+                              <Send size={10} style={{ transform: 'rotate(-90deg)' }} />
                             </button>
                             <button className="comment-action-btn btn-del-com" onClick={() => handleDeleteComment(c.id)}>
                               <Trash2 size={10} />

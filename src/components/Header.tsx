@@ -1,22 +1,24 @@
 import React from 'react';
-import { Search, Plus, Layout, Calendar, Table as TableIcon } from 'lucide-react';
+import { Search, Plus, Layout, Calendar, Table as TableIcon, TrendingUp } from 'lucide-react';
 import type { Post, Status } from '../types';
 
 interface HeaderProps {
   posts: Post[];
-  view: 'board' | 'calendar' | 'table';
-  setView: (v: 'board' | 'calendar' | 'table') => void;
+  view: 'board' | 'calendar' | 'table' | 'strategy';
+  setView: (v: 'board' | 'calendar' | 'table' | 'strategy') => void;
   search: string;
   setSearch: (s: string) => void;
   filterPilar: string;
   setFilterPilar: (s: string) => void;
   filterType: string;
   setFilterType: (s: string) => void;
+  filterMonth: string;
+  setFilterMonth: (s: string) => void;
   onNew: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  posts, view, setView, search, setSearch, filterPilar, setFilterPilar, filterType, setFilterType, onNew
+  posts, view, setView, search, setSearch, filterPilar, setFilterPilar, filterType, setFilterType, filterMonth, setFilterMonth, onNew
 }) => {
   const getCount = (s: Status) => posts.filter(p => p.status === s).length;
   const approvedCount = getCount('aprobado');
@@ -79,6 +81,12 @@ export const Header: React.FC<HeaderProps> = ({
             <option value="video">Video / Reel</option>
             <option value="photo">Fotografía</option>
           </select>
+          <select value={filterMonth} onChange={(e) => setFilterMonth(e.target.value)}>
+            <option value="">Todos los meses</option>
+            <option value="mes1">Mes 1 (Lanzamiento)</option>
+            <option value="mes2">Mes 2 (Carta & Oferta)</option>
+            <option value="mes3">Mes 3 (Comunidad)</option>
+          </select>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -100,6 +108,12 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => setView('table')}
             >
               <TableIcon size={13} /> Tabla
+            </button>
+            <button
+              className={`tab ${view === 'strategy' ? 'active' : ''}`}
+              onClick={() => setView('strategy')}
+            >
+              <TrendingUp size={13} /> Estrategia
             </button>
           </div>
           <button className="btn-new" onClick={onNew}>
