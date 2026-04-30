@@ -32,6 +32,7 @@ export const Table: React.FC<TableProps> = ({ posts, onCardClick }) => {
               <th>Tipo</th>
               <th>Pieza</th>
               <th>Pilar</th>
+              <th>Objetivo</th>
               <th>Estado</th>
               <th style={{ textAlign: 'center' }}>Feedback</th>
               <th style={{ textAlign: 'center' }}>Link</th>
@@ -51,7 +52,10 @@ export const Table: React.FC<TableProps> = ({ posts, onCardClick }) => {
                   <div className="tbl-title">{p.title}</div>
                   <div className="tbl-concept">{p.concept}</div>
                 </td>
-                <td style={{ fontSize: '11px', color: '#6B6960' }}>{p.pilar}</td>
+                <td style={{ fontSize: '11px', color: '#6B6960' }}>
+                  {p.pilar === 'La Tostaduría' ? 'Tostaduría' : p.pilar}
+                </td>
+                <td style={{ fontSize: '11px', fontWeight: 500, color: '#BA7517' }}>{p.objective || '—'}</td>
                 <td>
                   <span className={`status-pill pill-${p.status}`}>
                     {statusLabel[p.status]}

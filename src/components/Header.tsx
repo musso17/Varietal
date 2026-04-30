@@ -14,11 +14,13 @@ interface HeaderProps {
   setFilterType: (s: string) => void;
   filterMonth: string;
   setFilterMonth: (s: string) => void;
+  filterObjective: string;
+  setFilterObjective: (s: string) => void;
   onNew: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  posts, view, setView, search, setSearch, filterPilar, setFilterPilar, filterType, setFilterType, filterMonth, setFilterMonth, onNew
+  posts, view, setView, search, setSearch, filterPilar, setFilterPilar, filterType, setFilterType, filterMonth, setFilterMonth, filterObjective, setFilterObjective, onNew
 }) => {
   const getCount = (s: Status) => posts.filter(p => p.status === s).length;
   const approvedCount = getCount('aprobado');
@@ -73,8 +75,14 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
           <select value={filterPilar} onChange={(e) => setFilterPilar(e.target.value)}>
             <option value="">Todos los pilares</option>
-            <option value="La Tostaduría">La Tostaduría</option>
+            <option value="La Tostaduría">Tostaduría</option>
             <option value="La Barra">La Barra</option>
+          </select>
+          <select value={filterObjective} onChange={(e) => setFilterObjective(e.target.value)}>
+            <option value="">Todos los objetivos</option>
+            <option value="Posicionamiento">Posicionamiento</option>
+            <option value="Educación">Educación</option>
+            <option value="Comunidad">Comunidad</option>
           </select>
           <select value={filterType} onChange={(e) => setFilterType(e.target.value)}>
             <option value="">Todos los tipos</option>

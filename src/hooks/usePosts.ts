@@ -56,6 +56,7 @@ export const usePosts = () => {
         status: post.status,
         date: post.date || null,
         link: post.link,
+        objective: post.objective,
         comments: post.comments
       });
 

@@ -20,6 +20,7 @@ const App: React.FC = () => {
   const [filterPilar, setFilterPilar] = useState('');
   const [filterType, setFilterType] = useState('');
   const [filterMonth, setFilterMonth] = useState('');
+  const [filterObjective, setFilterObjective] = useState('');
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -29,6 +30,7 @@ const App: React.FC = () => {
                            (p.concept || '').toLowerCase().includes(search.toLowerCase());
       const matchesPilar = filterPilar ? p.pilar === filterPilar : true;
       const matchesType = filterType ? p.type === filterType : true;
+      const matchesObjective = filterObjective ? p.objective === filterObjective : true;
       
       let matchesMonth = true;
       if (filterMonth && p.date) {
@@ -46,9 +48,9 @@ const App: React.FC = () => {
         }
       }
 
-      return matchesSearch && matchesPilar && matchesType && matchesMonth;
+      return matchesSearch && matchesPilar && matchesType && matchesMonth && matchesObjective;
     });
-  }, [posts, search, filterPilar, filterType, filterMonth]);
+  }, [posts, search, filterPilar, filterType, filterMonth, filterObjective]);
 
   const handleOpenModal = (post: Post | null = null, initialDate: string = '') => {
     if (post) {
@@ -112,6 +114,8 @@ const App: React.FC = () => {
         setFilterType={setFilterType}
         filterMonth={filterMonth}
         setFilterMonth={setFilterMonth}
+        filterObjective={filterObjective}
+        setFilterObjective={setFilterObjective}
         onNew={() => handleOpenModal()}
       />
       

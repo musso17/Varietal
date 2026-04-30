@@ -38,14 +38,14 @@ export const StrategyView: React.FC = () => {
           <h2 className="strategy-h2">Pilares de Contenido</h2>
           <div className="pilars-grid">
             <div className="pilar-item tostaduria">
-              <div className="pilar-name">Pureza & Técnica</div>
-              <div className="pilar-desc">El varietal es el héroe. Autoridad técnica, ratios, micras y perfiles de tueste sin simplificar el lenguaje.</div>
-              <div className="pilar-tags">#Genética #Precisión #Autoridad</div>
+              <div className="pilar-name">Tostaduría</div>
+              <div className="pilar-desc">El varietal como protagonista. Autoridad en el tueste, perfiles sensoriales, origen y la ciencia detrás de cada grano.</div>
+              <div className="pilar-tags">#Tueste #Origen #Especialidad #Autoridad</div>
             </div>
             <div className="pilar-item barra">
-              <div className="pilar-name">Minimalismo Editorial</div>
-              <div className="pilar-desc">Estética clínica pero sofisticada. Mostrar cómo la marca encaja en la luz y la arquitectura de Barranco.</div>
-              <div className="pilar-tags">#Diseño #Barranco #ExpertoSilencioso</div>
+              <div className="pilar-name">La Barra</div>
+              <div className="pilar-desc">La experiencia en el salón. Servicio, hospitalidad, la interacción con el barista y el estilo de vida en Barranco.</div>
+              <div className="pilar-tags">#BarraDeCafe #Servicio #Comunidad #Barranco</div>
             </div>
           </div>
         </div>
@@ -105,7 +105,7 @@ export const StrategyView: React.FC = () => {
       </div>
 
       {/* Bottom Section: 3-Month Roadmap */}
-      <h2 className="strategy-h2" style={{ marginTop: '40px', paddingLeft: '8px' }}>Roadmap Estratégico (Q2 2026)</h2>
+      <h2 className="strategy-h2" style={{ marginTop: '40px', paddingLeft: '8px' }}>Estrategia</h2>
       <div className="roadmap-grid">
         <div className="roadmap-step active">
           <div className="step-num">01</div>

@@ -13,6 +13,7 @@ create table if not exists public.posts (
   status text not null check (status in ('idea', 'produccion', 'revision', 'aprobado')),
   date date,
   link text,
+  objective text,
   comments jsonb default '[]'::jsonb
 );
 
@@ -35,16 +36,16 @@ begin;
 commit;
 
 -- 6. Initial Seed Data
-insert into public.posts (title, type, pilar, concept, visual, status, date, link, comments)
+insert into public.posts (title, type, pilar, concept, visual, status, date, link, objective, comments)
 values
-('Video 1: Física del Tueste', 'video', 'La Tostaduría', 'Un edit rítmico sobre la física del tueste.', 'Planos detalle del panel de control, el cambio de color del grano y el humo. Sonido industrial (ASMR).', 'aprobado', '2026-04-02', '', '[{"author":"Cerezo","text":"Audio ASMR listo, usamos micro de contacto en la tostadora."}]'),
-('Video 2: Proceso de Cupping', 'video', 'La Tostaduría', 'El proceso de cupping (cata) antes de decidir qué llega a la barra.', 'Enfoque en las manos y la cuchara. Menos música, más sonido ambiente.', 'revision', '2026-04-06', '', '[]'),
-('Post 1: Varietal Geisha', 'photo', 'La Tostaduría', 'Un primer plano extremo de un varietal específico (ej. Geisha).', 'Estética de catálogo de arte. Fondo negro o crema sólido.', 'produccion', '2026-04-09', '', '[]'),
-('Post 2: Notas de Cata', 'photo', 'La Tostaduría', 'Foto de la bolsa con luz cenital, rodeada de sus notas de cata reales.', 'Composición minimalista tipo flat-lay editorial.', 'idea', '2026-04-12', '', '[]'),
-('Video 3: Instalación Barra', 'video', 'La Barra', 'Un recorrido visual por la barra instalando todo.', 'Planos lentos (slow pan) y la luz de Barranco entrando por la ventana.', 'idea', '2026-04-21', '', '[]'),
-('Video 4: Primer Espresso', 'video', 'La Barra', 'El primer espresso/V60 servido en la nueva barra.', 'La cámara sigue la taza desde la barra hasta la mano del cliente.', 'idea', '2026-04-24', '', '[]'),
-('Post 5: Fachada Barranco', 'photo', 'La Barra', 'El logo de Varietal integrándose a la arquitectura de Barranco.', 'Foto de la fachada desde la calle.', 'idea', '2026-04-26', '', '[]'),
-('Post 6: Precisión Técnica', 'photo', 'La Barra', 'Primer plano de la concentración al texturizar leche o verter agua.', 'Foco en la mirada y la precisión técnica del equipo.', 'idea', '2026-04-27', '', '[]');
+('Video 1: Física del Tueste', 'video', 'La Tostaduría', 'Un edit rítmico sobre la física del tueste.', 'Planos detalle del panel de control, el cambio de color del grano y el humo. Sonido industrial (ASMR).', 'aprobado', '2026-04-02', '', 'Educación', '[{"author":"Cerezo","text":"Audio ASMR listo, usamos micro de contacto en la tostadora."}]'),
+('Video 2: Proceso de Cupping', 'video', 'La Tostaduría', 'El proceso de cupping (cata) antes de decidir qué llega a la barra.', 'Enfoque en las manos y la cuchara. Menos música, más sonido ambiente.', 'revision', '2026-04-06', '', 'Educación', '[]'),
+('Post 1: Varietal Geisha', 'photo', 'La Tostaduría', 'Un primer plano extremo de un varietal específico (ej. Geisha).', 'Estética de catálogo de arte. Fondo negro o crema sólido.', 'produccion', '2026-04-09', '', 'Posicionamiento', '[]'),
+('Post 2: Notas de Cata', 'photo', 'La Tostaduría', 'Foto de la bolsa con luz cenital, rodeada de sus notas de cata reales.', 'Composición minimalista tipo flat-lay editorial.', 'idea', '2026-04-12', '', 'Educación', '[]'),
+('Video 3: Instalación Barra', 'video', 'La Barra', 'Un recorrido visual por la barra instalando todo.', 'Planos lentos (slow pan) y la luz de Barranco entrando por la ventana.', 'idea', '2026-04-21', '', 'Posicionamiento', '[]'),
+('Video 4: Primer Espresso', 'video', 'La Barra', 'El primer espresso/V60 servido en la nueva barra.', 'La cámara sigue la taza desde la barra hasta la mano del cliente.', 'idea', '2026-04-24', '', 'Comunidad', '[]'),
+('Post 5: Fachada Barranco', 'photo', 'La Barra', 'El logo de Varietal integrándose a la arquitectura de Barranco.', 'Foto de la fachada desde la calle.', 'idea', '2026-04-26', '', 'Comunidad', '[]'),
+('Post 6: Precisión Técnica', 'photo', 'La Barra', 'Primer plano de la concentración al texturizar leche o verter agua.', 'Foco en la mirada y la precisión técnica del equipo.', 'idea', '2026-04-27', '', 'Posicionamiento', '[]');
 
 -- 7. Create the sessions table
 create table if not exists public.sessions (

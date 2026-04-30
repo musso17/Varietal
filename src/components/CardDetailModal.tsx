@@ -115,8 +115,20 @@ export const CardDetailModal: React.FC<CardDetailModalProps> = ({ post, isOpen, 
               value={formData.pilar}
               onChange={(e) => setFormData({ ...formData, pilar: e.target.value as any })}
             >
-              <option value="La Tostaduría">La Tostaduría</option>
+              <option value="La Tostaduría">Tostaduría</option>
               <option value="La Barra">La Barra</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label>Objetivo de marca</label>
+            <select
+              value={formData.objective || ''}
+              onChange={(e) => setFormData({ ...formData, objective: e.target.value as any })}
+            >
+              <option value="">Seleccionar objetivo...</option>
+              <option value="Posicionamiento">Posicionamiento como Barra</option>
+              <option value="Educación">Educación al Consumidor</option>
+              <option value="Comunidad">El Point de Barranco</option>
             </select>
           </div>
           <div className="form-group">

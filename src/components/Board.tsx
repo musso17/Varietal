@@ -78,7 +78,14 @@ export const Board: React.FC<BoardProps> = ({ posts, onCardClick, onUpdateStatus
                           {p.type === 'video' ? <Video size={10} /> : <Camera size={10} />}
                           {p.type === 'video' ? 'Video' : 'Foto'}
                         </span>
-                        <span className="pilar-label">{p.pilar}</span>
+                        <span className="pilar-label">
+                          {p.pilar === 'La Tostaduría' ? 'Tostaduría' : p.pilar}
+                        </span>
+                        {p.objective && (
+                          <span className="pilar-label" style={{ background: 'rgba(186, 117, 23, 0.1)', color: '#BA7517', marginLeft: '4px' }}>
+                            {p.objective}
+                          </span>
+                        )}
                       </div>
                       <div className="card-icons">
                         {p.comments.length > 0 && (

@@ -1,6 +1,7 @@
 export type Status = 'idea' | 'produccion' | 'revision' | 'aprobado';
 export type PostType = 'video' | 'photo';
 export type Pilar = 'La Tostaduría' | 'La Barra';
+export type Objective = 'Posicionamiento' | 'Educación' | 'Comunidad';
 
 export interface Comment {
   id: string;
@@ -18,6 +19,7 @@ export interface Post {
   status: Status;
   date: string;
   link: string;
+  objective?: Objective;
   comments: Comment[];
 }
 
