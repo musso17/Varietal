@@ -1,5 +1,5 @@
 import React from 'react';
-import { Target, Map, Users, Zap, BookOpen } from 'lucide-react';
+import { Target, Users, Zap, BookOpen } from 'lucide-react';
 
 export const StrategyView: React.FC = () => {
   return (
