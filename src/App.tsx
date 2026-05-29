@@ -10,6 +10,8 @@ import { useSessions } from './hooks/useSessions';
 import type { Post } from './types';
 import { Loader2 } from 'lucide-react';
 
+import { seedMes2 } from './utils/seedMes2';
+
 const App: React.FC = () => {
   const { posts, loading: postsLoading, savePost, deletePost, updateStatus } = usePosts();
   const { sessions, loading: sessionsLoading, toggleSession } = useSessions();
@@ -21,6 +23,14 @@ const App: React.FC = () => {
   const [filterType, setFilterType] = useState('');
   const [filterMonth, setFilterMonth] = useState('');
   const [filterObjective, setFilterObjective] = useState('');
+  const [seeding, setSeeding] = useState(false);
+
+  const handleSeedMes2 = async () => {
+    setSeeding(true);
+    const result = await seedMes2();
+    setSeeding(false);
+    alert(`✅ Sincronizado: ${result.inserted} piezas nuevas, ${result.skipped} ya existían.`);
+  };
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -117,6 +127,8 @@ const App: React.FC = () => {
         filterObjective={filterObjective}
         setFilterObjective={setFilterObjective}
         onNew={() => handleOpenModal()}
+        onSeedMes2={handleSeedMes2}
+        seeding={seeding}
       />
       
       <main className="main">

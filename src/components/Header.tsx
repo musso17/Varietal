@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Plus, Layout, Calendar, Table as TableIcon, TrendingUp } from 'lucide-react';
+import { Search, Plus, Layout, Calendar, Table as TableIcon, TrendingUp, Download } from 'lucide-react';
 import type { Post, Status } from '../types';
 
 interface HeaderProps {
@@ -17,10 +17,12 @@ interface HeaderProps {
   filterObjective: string;
   setFilterObjective: (s: string) => void;
   onNew: () => void;
+  onSeedMes2?: () => void;
+  seeding?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  posts, view, setView, search, setSearch, filterPilar, setFilterPilar, filterType, setFilterType, filterMonth, setFilterMonth, filterObjective, setFilterObjective, onNew
+  posts, view, setView, search, setSearch, filterPilar, setFilterPilar, filterType, setFilterType, filterMonth, setFilterMonth, filterObjective, setFilterObjective, onNew, onSeedMes2, seeding
 }) => {
   const getCount = (s: Status) => posts.filter(p => p.status === s).length;
   const approvedCount = getCount('aprobado');
@@ -124,6 +126,17 @@ export const Header: React.FC<HeaderProps> = ({
               <TrendingUp size={13} /> Estrategia
             </button>
           </div>
+          {onSeedMes2 && (
+            <button
+              className="btn-seed"
+              onClick={onSeedMes2}
+              disabled={seeding}
+              title="Cargar las 11 piezas del Mes 2 (Junio)"
+            >
+              <Download size={13} strokeWidth={2.5} />
+              {seeding ? 'Cargando...' : 'Cargar Mes 2'}
+            </button>
+          )}
           <button className="btn-new" onClick={onNew}>
             <Plus size={13} strokeWidth={3} /> Nueva pieza
           </button>
